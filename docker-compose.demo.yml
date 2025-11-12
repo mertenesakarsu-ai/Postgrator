@@ -1,0 +1,104 @@
+version: '3.8'
+
+# Demo Mode - Only essential services (no MSSQL, lightweight PostgreSQL)
+# Usage: docker-compose -f docker-compose.demo.yml up -d
+
+services:
+  # MongoDB - Used for job tracking and metadata
+  mongodb:
+    image: mongo:7
+    container_name: postgrator_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - postgrator_network
+
+  # PostgreSQL - Target database for migration (optional for demo)
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgrator_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=target_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - postgrator_network
+
+  # Backend - FastAPI application with WebSocket support
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: postgrator_backend
+    ports:
+      - "8001:8001"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=postgrator_db
+      - CORS_ORIGINS=*
+      - MSSQL_HOST=mssql
+      - MSSQL_PORT=1433
+      - MSSQL_SA_PWD=YourStrong!Passw0rd
+      - TEMP_DB=TempFromBak
+    volumes:
+      - ./backend:/app
+      - backend_uploads:/app/uploads
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - postgrator_network
+    restart: unless-stopped
+
+  # Frontend - React application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: postgrator_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8001
+      - WDS_SOCKET_PORT=3000
+      - REACT_APP_ENABLE_VISUAL_EDITS=false
+      - ENABLE_HEALTH_CHECK=false
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - postgrator_network
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+volumes:
+  mongodb_data:
+  postgres_data:
+  backend_uploads:
+
+networks:
+  postgrator_network:
+    driver: bridge

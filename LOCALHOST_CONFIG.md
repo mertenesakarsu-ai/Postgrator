@@ -73,7 +73,7 @@ Tüm container'lar bridge network'te haberleşir.
 mongodb:27017       → MongoDB
 mssql:1433          → MSSQL Server
 postgres:5432       → PostgreSQL
-backend:8001        → Backend API
+backend:8000        → Backend API
 ```
 
 ### Port Mapping (Host → Container)

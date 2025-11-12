@@ -31,9 +31,10 @@ services:
       - ./backups:/var/opt/mssql/backup
       - mssql_data:/var/opt/mssql/data
     healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; urllib.request.urlopen('http://localhost:8001/health'); sys.exit(0)\""]
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - postgrator_network
 
@@ -64,7 +65,7 @@ services:
       dockerfile: Dockerfile
     container_name: postgrator_backend
     ports:
-      - "8001:8001"
+      - "8000:8000"
     environment:
       - MONGO_URL=mongodb://mongodb:27017
       - DB_NAME=postgrator_db
@@ -97,7 +98,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_BACKEND_URL=http://localhost:8001
+      - REACT_APP_BACKEND_URL=http://localhost:8000
       - WDS_SOCKET_PORT=3000
       - REACT_APP_ENABLE_VISUAL_EDITS=false
       - ENABLE_HEALTH_CHECK=false

@@ -247,3 +247,145 @@ async def run_migration(job_id: str):
         
         await send_progress(job_id, "error", msg=str(e))
         await send_progress(job_id, "log", level="error", msg=f"Hata: {e}")
+
+
+async def run_demo_migration(job_id: str):
+    """
+    Demo migration - simulates the process without real databases
+    """
+    job = jobs.get(job_id)
+    if not job:
+        return
+    
+    start_time = time.time()
+    
+    try:
+        job.status = JobStatus.RUNNING
+        await send_progress(job_id, "log", level="info", msg="Demo migrasyon başlatıldı")
+        
+        # Stage 1: Verify (simulated)
+        job.stage = Stage.VERIFY
+        job.percent = 5
+        await send_progress(job_id, "stage", v="verify")
+        await send_progress(job_id, "log", level="info", msg=".bak dosyası doğrulanıyor...")
+        await asyncio.sleep(1)
+        await send_progress(job_id, "log", level="info", msg="✓ Backup doğrulandı (demo)")
+        
+        # Stage 2: Restore (simulated)
+        job.stage = Stage.RESTORE
+        job.percent = 15
+        await send_progress(job_id, "stage", v="restore")
+        await send_progress(job_id, "log", level="info", msg="MSSQL'e restore ediliyor...")
+        await asyncio.sleep(1.5)
+        await send_progress(job_id, "log", level="info", msg="✓ Database restore edildi (demo)")
+        
+        # Stage 3: Schema Discovery (simulated)
+        job.stage = Stage.SCHEMA_DISCOVERY
+        job.percent = 25
+        await send_progress(job_id, "stage", v="schema_discovery")
+        await send_progress(job_id, "log", level="info", msg="Şema analiz ediliyor...")
+        await asyncio.sleep(1)
+        
+        # Create demo tables
+        demo_tables = [
+            {"schema": "dbo", "name": "Customers", "rows": 91},
+            {"schema": "dbo", "name": "Orders", "rows": 830},
+            {"schema": "dbo", "name": "Order Details", "rows": 2155},
+            {"schema": "dbo", "name": "Products", "rows": 77},
+            {"schema": "dbo", "name": "Categories", "rows": 8},
+            {"schema": "dbo", "name": "Employees", "rows": 9},
+            {"schema": "dbo", "name": "Suppliers", "rows": 29},
+            {"schema": "dbo", "name": "Shippers", "rows": 3}
+        ]
+        
+        for table in demo_tables:
+            job.tables.append(TableInfo(
+                schema_name=table['schema'],
+                table_name=table['name'],
+                row_count=table['rows']
+            ))
+        
+        job.stats.tables_total = len(job.tables)
+        await send_progress(job_id, "log", level="info", msg=f"✓ {len(job.tables)} tablo bulundu (demo)")
+        
+        # Stage 4: DDL Apply (simulated)
+        job.stage = Stage.DDL_APPLY
+        job.percent = 35
+        await send_progress(job_id, "stage", v="ddl_apply")
+        await send_progress(job_id, "log", level="info", msg="PostgreSQL şema oluşturuluyor...")
+        await asyncio.sleep(1)
+        await send_progress(job_id, "log", level="info", msg="✓ Tablolar oluşturuldu (demo)")
+        
+        # Stage 5: Data Migration (simulated)
+        job.stage = Stage.DATA_MIGRATION
+        job.percent = 45
+        await send_progress(job_id, "stage", v="data_migration")
+        await send_progress(job_id, "log", level="info", msg="Veri aktarımı başladı...")
+        
+        for idx, table_info in enumerate(job.tables):
+            await send_progress(job_id, "log", level="info", 
+                msg=f"[{idx+1}/{len(job.tables)}] {table_info.table_name} aktarılıyor...")
+            
+            # Simulate progress
+            for i in range(0, 101, 25):
+                table_info.percent = i
+                table_info.migrated_rows = int(table_info.row_count * i / 100)
+                await send_progress(job_id, "table_progress", 
+                    table=table_info.table_name,
+                    p=i,
+                    rows=table_info.migrated_rows
+                )
+                await asyncio.sleep(0.3)
+            
+            table_info.percent = 100
+            table_info.migrated_rows = table_info.row_count
+            job.stats.tables_done += 1
+            job.stats.rows_migrated += table_info.row_count
+            
+            # Update overall progress
+            job.percent = 45 + int(40 * (idx + 1) / len(job.tables))
+            
+            await send_progress(job_id, "progress", 
+                p=job.percent,
+                tables_done=job.stats.tables_done,
+                tables_total=job.stats.tables_total,
+                rows=job.stats.rows_migrated
+            )
+        
+        await send_progress(job_id, "log", level="info", msg="✓ Veri aktarımı tamamlandı (demo)")
+        
+        # Stage 6: Constraints (simulated)
+        job.stage = Stage.CONSTRAINTS
+        job.percent = 90
+        await send_progress(job_id, "stage", v="constraints")
+        await send_progress(job_id, "log", level="info", msg="Kısıtlamalar uygulanıyor...")
+        await asyncio.sleep(1)
+        await send_progress(job_id, "log", level="info", msg="✓ Primary key'ler oluşturuldu (demo)")
+        await send_progress(job_id, "log", level="info", msg="✓ Foreign key'ler oluşturuldu (demo)")
+        await send_progress(job_id, "log", level="info", msg="✓ Index'ler oluşturuldu (demo)")
+        
+        # Stage 7: Validation (simulated)
+        job.stage = Stage.VALIDATION
+        job.percent = 95
+        await send_progress(job_id, "stage", v="validation")
+        await send_progress(job_id, "log", level="info", msg="Veri doğrulanıyor...")
+        await asyncio.sleep(1)
+        await send_progress(job_id, "log", level="info", msg="✓ Tüm tablolar doğrulandı (demo)")
+        
+        # Stage 8: Done
+        job.stage = Stage.DONE
+        job.percent = 100
+        job.status = JobStatus.DONE
+        job.stats.elapsed_sec = time.time() - start_time
+        
+        await send_progress(job_id, "stage", v="done")
+        await send_progress(job_id, "done", success=True)
+        await send_progress(job_id, "log", level="info", 
+            msg=f"✓ Demo migrasyon tamamlandı ({job.stats.elapsed_sec:.1f} saniye)")
+    
+    except Exception as e:
+        logger.error(f"Demo migration failed: {e}", exc_info=True)
+        job.status = JobStatus.FAILED
+        job.error = str(e)
+        await send_progress(job_id, "error", msg=str(e))
+        await send_progress(job_id, "log", level="error", msg=f"Hata: {e}")

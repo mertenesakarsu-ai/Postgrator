@@ -170,7 +170,7 @@ docker-compose logs -f           # Tüm logs
 ### Frontend'den Backend'e
 ```javascript
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-// http://localhost:8001/api
+// http://localhost:8000/api
 ```
 
 ### Backend'den MongoDB'ye

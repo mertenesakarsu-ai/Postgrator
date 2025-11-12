@@ -198,6 +198,26 @@ agent_communication:
       5. README.md güncellendi
       
       Demo modu PostgreSQL, MSSQL veya .bak dosyası gerektirmeden migration işlemini simüle eder.
+  - agent: "main"
+    message: |
+      Demo veri görüntüleme sorunu çözüldü. Kullanıcı feedback: "Tablo seçildiğinde veri bulunamadı hatası verdi"
+      
+      Yapılan Düzeltmeler:
+      1. Job modeline is_demo flag eklendi
+      2. create_job fonksiyonuna is_demo parametresi eklendi
+      3. Demo job oluşturulurken is_demo=True set ediliyor
+      4. /api/jobs/{job_id}/tables/{table_name}/rows endpoint'inde demo kontrolü eklendi
+      5. _get_demo_table_data fonksiyonu ile 8 tablo için mock data hazırlandı:
+         - Customers: 91 satır
+         - Orders: 830 satır
+         - Order Details: 2155 satır
+         - Products: 77 satır
+         - Categories: 8 satır
+         - Employees: 9 satır
+         - Suppliers: 29 satır
+         - Shippers: 3 satır
+      
+      Artık demo modda tablolar seçildiğinde gerçekçi örnek veriler gösteriliyor.
   - agent: "testing"
     message: |
       Demo Migration Endpoint başarıyla test edildi ve çalışıyor.

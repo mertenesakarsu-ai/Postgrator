@@ -40,7 +40,7 @@ class Job(BaseModel):
     stage: Stage = Stage.VERIFY
     percent: int = 0
     pg_uri: str
-    schema: str = "public"
+    schema: str = Field(default="public", alias="schema")
     bak_filename: str
     stats: JobStats = Field(default_factory=JobStats)
     tables: List[TableInfo] = Field(default_factory=list)

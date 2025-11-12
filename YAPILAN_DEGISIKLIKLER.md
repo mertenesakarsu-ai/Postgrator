@@ -30,7 +30,7 @@ MSSQL_HOST="mssql"                       # Docker servis ismi
 
 #### frontend/.env Guncellendi:
 ```env
-REACT_APP_BACKEND_URL=http://localhost:8001  # Localhost URL
+REACT_APP_BACKEND_URL=http://localhost:8000  # Localhost URL
 WDS_SOCKET_PORT=3000                         # WebSocket port
 ```
 

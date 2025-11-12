@@ -1,1 +1,66 @@
-# Here are your Instructions
+# Postgrator - SQL Server to PostgreSQL Migration Tool
+
+## 🎯 Genel Bakış
+
+Postgrator, SQL Server .bak yedeklerini PostgreSQL'e hızlı, güvenli ve kayıpsız aktaran modern bir migration aracıdır.
+
+### ✨ Özellikler
+
+- **Tek Tık Migrasyon**: .bak dosyası yükle, PostgreSQL bilgilerini gir, başlat
+- **Şema Koruması**: Tablolar, kolonlar, primary key'ler, foreign key'ler, index'ler bozulmadan aktarılır
+- **Hızlı Veri Transferi**: PostgreSQL COPY protokolü ile yüksek performans
+- **Gerçek Zamanlı İzleme**: WebSocket ile canlı ilerleme takibi
+- **Detaylı Raporlama**: Schema DDL, satır sayıları, hata logları
+- **Veri Görüntüleme**: Migrated tabloları sayfalı olarak görüntüleme
+
+## 🏗️ Mimari
+
+### Tech Stack
+- **Frontend**: React 19 + Tailwind CSS + Shadcn/UI
+- **Backend**: FastAPI + Python 3.11
+- **Veritabanları**: 
+  - MSSQL 2022 (geçici restore için)
+  - PostgreSQL 16 (hedef)
+- **Real-time**: WebSockets
+- **Docker**: Full stack containerization
+
+## 🚀 Kurulum
+
+### Docker Compose Başlat
+```bash
+docker-compose up -d
+```
+
+### Tarayıcıda Aç
+```
+http://localhost:3000
+```
+
+## 📝 Kullanım
+
+### 1. Dosya Yükleme
+- **.bak Dosyası**: Maksimum 50 GB
+- **PostgreSQL URI**: `postgresql://user:pass@host:5432/database`
+- **Hedef Şema**: Varsayılan `public`
+
+### 2. İlerleme Takibi
+Real-time aşamalar: Doğrulama → Restore → Şema Analizi → Tablo Oluşturma → Veri Kopyalama → Kısıtlamalar → Doğrulama
+
+### 3. Sonuçlar
+**Artifaktlar**: schema.sql, rowcount.csv, errors.log
+**Veri Görüntüleme**: Sayfalı tablo görüntüleme
+
+## 🔧 Type Mapping
+
+| MSSQL | PostgreSQL |
+|-------|------------|
+| INT | INTEGER |
+| BIGINT | BIGINT |
+| BIT | BOOLEAN |
+| NVARCHAR(n) | VARCHAR(n) |
+| DATETIME | TIMESTAMP |
+| UNIQUEIDENTIFIER | UUID |
+
+---
+
+**Emergent Labs** tarafından geliştirilmiştir.

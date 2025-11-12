@@ -42,7 +42,8 @@ async def import_demo():
         job_id = await migration_service.create_job(
             "postgresql://demo:demo@demo:5432/demo_db", 
             "public", 
-            "demo_northwind.bak"
+            "demo_northwind.bak",
+            is_demo=True
         )
         
         # Start demo migration in background

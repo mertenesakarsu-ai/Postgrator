@@ -26,25 +26,36 @@ Postgrator, SQL Server .bak yedeklerini PostgreSQL'e hızlı, güvenli ve kayıp
 
 ## 🚀 Kurulum
 
-### Localhost'ta Çalıştırma (Docker ile)
+### 🏠 Localhost'ta Çalıştırma (Docker ile)
 
-Detaylı kurulum için: [📖 LOCALHOST_SETUP.md](./LOCALHOST_SETUP.md)
-
-#### Hızlı Başlangıç
+#### ⚡ Hızlı Başlangıç (2 dakika)
 ```bash
-# Tüm servisleri başlat (MongoDB, MSSQL, PostgreSQL, Backend, Frontend)
+# Tüm servisleri başlat
 docker-compose up -d
 
 # Tarayıcıda aç
 # http://localhost:3000
 ```
 
-#### Servisler
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8001
-- **MongoDB**: localhost:27017
-- **PostgreSQL**: localhost:5432
-- **MSSQL**: localhost:1433
+#### 🎮 Sadece Demo İçin (Hafif)
+MSSQL olmadan sadece demo modu için:
+```bash
+docker-compose -f docker-compose.demo.yml up -d
+```
+
+#### 📖 Detaylı Dokümanlar
+- **Hızlı Başlangıç**: [QUICKSTART.md](./QUICKSTART.md) - 2 dakikada çalıştır
+- **Detaylı Kurulum**: [LOCALHOST_SETUP.md](./LOCALHOST_SETUP.md) - Tüm detaylar ve sorun giderme
+- **Test Talimatları**: [TEST_INSTRUCTIONS.md](./TEST_INSTRUCTIONS.md)
+
+#### 🌐 Servisler ve Portlar
+| Servis | Port | URL |
+|--------|------|-----|
+| Frontend | 3000 | http://localhost:3000 |
+| Backend API | 8001 | http://localhost:8001 |
+| MongoDB | 27017 | mongodb://localhost:27017 |
+| PostgreSQL | 5432 | postgresql://localhost:5432 |
+| MSSQL | 1433 | mssql://localhost:1433 |
 
 ## 📝 Kullanım
 

@@ -38,15 +38,30 @@ http://localhost:3000
 
 ## 📝 Kullanım
 
-### 1. Dosya Yükleme
+### 🎮 Demo Modu (Önerilen - Test İçin)
+Demo modu ile gerçek veritabanı bağlantısı olmadan migration işlemini deneyebilirsiniz:
+
+1. Ana sayfada **"Demo Modu İle Dene"** butonuna tıklayın
+2. Simüle edilmiş bir Northwind veritabanı migration'ını izleyin
+3. Tüm aşamaları ve özellikleri gerçek zamanlı olarak görün
+
+**Demo Modda:**
+- Gerçek .bak dosyası gerekmez
+- PostgreSQL bağlantısı gerekmez
+- MSSQL sunucusu gerekmez
+- Tüm migration süreci simüle edilir
+
+### 📤 Gerçek Migration Modu
+
+#### 1. Dosya Yükleme
 - **.bak Dosyası**: Maksimum 50 GB
 - **PostgreSQL URI**: `postgresql://user:pass@host:5432/database`
 - **Hedef Şema**: Varsayılan `public`
 
-### 2. İlerleme Takibi
+#### 2. İlerleme Takibi
 Real-time aşamalar: Doğrulama → Restore → Şema Analizi → Tablo Oluşturma → Veri Kopyalama → Kısıtlamalar → Doğrulama
 
-### 3. Sonuçlar
+#### 3. Sonuçlar
 **Artifaktlar**: schema.sql, rowcount.csv, errors.log
 **Veri Görüntüleme**: Sayfalı tablo görüntüleme
 

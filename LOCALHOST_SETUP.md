@@ -133,7 +133,7 @@ docker-compose restart frontend
 docker-compose logs backend
 
 # Bağlantı testi
-curl http://localhost:8001/api
+curl http://localhost:8000/api
 ```
 
 ### Port Çakışması

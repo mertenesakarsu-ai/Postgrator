@@ -35,6 +35,7 @@ class JobStats(BaseModel):
     tables_total: int = 0
     elapsed_sec: float = 0
     current_table: Optional[str] = None
+    rows_migrated: int = 0
 
 class Job(BaseModel):
     job_id: str = Field(default_factory=lambda: str(uuid.uuid4()))

@@ -52,7 +52,7 @@ docker-compose -f docker-compose.demo.yml up -d
 | Servis | Port | URL |
 |--------|------|-----|
 | Frontend | 3000 | http://localhost:3000 |
-| Backend API | 8001 | http://localhost:8001 |
+| Backend API | 8000 | http://localhost:8000 |
 | MongoDB | 27017 | mongodb://localhost:27017 |
 | PostgreSQL | 5432 | postgresql://localhost:5432 |
 | MSSQL | 1433 | mssql://localhost:1433 |

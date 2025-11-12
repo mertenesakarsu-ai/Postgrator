@@ -32,6 +32,28 @@ logger = logging.getLogger(__name__)
 async def root():
     return {"message": "BAK to PostgreSQL Migration API"}
 
+@api_router.post("/import/demo")
+async def import_demo():
+    """
+    Demo mode - simulates migration without actual MSSQL/PostgreSQL
+    """
+    try:
+        # Create demo job
+        job_id = await migration_service.create_job(
+            "postgresql://demo:demo@demo:5432/demo_db", 
+            "public", 
+            "demo_northwind.bak"
+        )
+        
+        # Start demo migration in background
+        asyncio.create_task(migration_service.run_demo_migration(job_id))
+        
+        return {"jobId": job_id, "status": "queued", "demo": True}
+    
+    except Exception as e:
+        logger.error(f"Demo import failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
 @api_router.post("/import")
 async def import_backup(
     file: UploadFile = File(...),

@@ -106,7 +106,7 @@ docker-compose logs -f backend
 Ilk docker-compose up komutu Docker image'lari indireceği icin 5-10 dakika surebilir.
 
 ### Portlar
-Eger 3000, 8001, 27017, 5432 veya 1433 portlari zaten kullanimdaysa:
+Eger 3000, 8000, 27017, 5432 veya 1433 portlari zaten kullanimdaysa:
 - docker-compose.yml'deki port numaralarini degistir
 - Ornek: "3001:3000" (3000 yerine 3001 kullan)
 

@@ -8,8 +8,23 @@ import csv
 import io
 
 from models.job import Job, JobStatus, Stage, TableInfo
-from services import mssql_service, postgres_service, upload_service
 from utils.websocket_manager import manager
+
+# Lazy imports to avoid loading heavy dependencies when not needed
+mssql_service = None
+postgres_service = None
+upload_service = None
+
+def _ensure_services():
+    """Lazy load services only when needed for real migration"""
+    global mssql_service, postgres_service, upload_service
+    if mssql_service is None:
+        from services import mssql_service as ms
+        from services import postgres_service as ps
+        from services import upload_service as us
+        mssql_service = ms
+        postgres_service = ps
+        upload_service = us
 
 logger = logging.getLogger(__name__)
 

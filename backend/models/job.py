@@ -27,6 +27,8 @@ class TableInfo(BaseModel):
     copied: bool = False
     duration_sec: Optional[float] = None
     error: Optional[str] = None
+    percent: int = 0
+    migrated_rows: int = 0
 
 class JobStats(BaseModel):
     tables_done: int = 0

@@ -38,7 +38,7 @@ docker-compose -f docker-compose.demo.yml up -d
 - Base: Python 3.11 slim
 - ODBC Driver 18 for SQL Server
 - Hot-reload aktif (--reload flag)
-- Port: 8001
+- Port: 8000
 
 #### `frontend/Dockerfile`
 - Base: Node 18 alpine

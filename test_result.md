@@ -147,6 +147,18 @@ backend:
     implemented: true
     working: true
     file: "backend/services/migration_service.py"
+
+  - task: "Localhost Port Yapılandırması"
+    implemented: true
+    working: true
+    file: "docker-compose.yml, backend/Dockerfile"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Backend portu 8001'den 8000'e değiştirildi. docker-compose.yml, docker-compose.demo.yml, backend/Dockerfile ve tüm dokümanlar güncellendi. WebSocket otomatik olarak yeni porta uyum sağlayacak."
     stuck_count: 0
     priority: "high"
     needs_retesting: false

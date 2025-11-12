@@ -50,6 +50,7 @@ class Job(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     completed_at: Optional[datetime] = None
     error: Optional[str] = None
+    is_demo: bool = False
 
 class ProgressEvent(BaseModel):
     event_type: str  # stage, table_progress, log, done, error

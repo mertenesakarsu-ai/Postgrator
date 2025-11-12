@@ -1,10 +1,17 @@
+
+from pathlib import Path
+from dotenv import load_dotenv
+
+ROOT_DIR = Path(__file__).parent
+load_dotenv(ROOT_DIR / '.env')
+
 from fastapi import FastAPI, APIRouter, UploadFile, File, Form, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.responses import FileResponse
-from dotenv import load_dotenv
+
 from starlette.middleware.cors import CORSMiddleware
 import os
 import logging
-from pathlib import Path
+
 import asyncio
 
 from services import upload_service, migration_service
@@ -12,8 +19,7 @@ from services.migration_service import jobs
 from utils.websocket_manager import manager
 import psycopg
 
-ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
+
 
 # Create the main app
 app = FastAPI(title="BAK to PostgreSQL Migration")

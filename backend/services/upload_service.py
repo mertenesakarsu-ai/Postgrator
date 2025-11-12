@@ -7,8 +7,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-BACKUP_DIR = Path("/app/backups")
-BACKUP_DIR.mkdir(exist_ok=True)
+BACKUP_DIR = Path(__file__).parent.parent / "backups" 
+BACKUP_DIR.mkdir(parents=True, exist_ok=True)
 
 MAX_FILE_SIZE = 50 * 1024 * 1024 * 1024  # 50 GB
 

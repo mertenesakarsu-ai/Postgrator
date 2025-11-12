@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 # Demo Mode - Only essential services (no MSSQL, lightweight PostgreSQL)
 # Usage: docker-compose -f docker-compose.demo.yml up -d

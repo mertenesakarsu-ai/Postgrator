@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Git
+.git
+.gitignore
+
+# ENV dosyalarını imaja kopyalama
+.env
+.env.*

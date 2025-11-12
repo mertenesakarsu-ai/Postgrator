@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   # MongoDB - Used for job tracking and metadata
@@ -31,8 +31,7 @@ services:
       - ./backups:/var/opt/mssql/backup
       - mssql_data:/var/opt/mssql/data
     healthcheck:
-      test: ["/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1"]
-      interval: 10s
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; urllib.request.urlopen('http://localhost:8001/health'); sys.exit(0)\""]
       timeout: 5s
       retries: 5
     networks:

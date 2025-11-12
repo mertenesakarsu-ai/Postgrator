@@ -61,7 +61,7 @@ http://localhost:3000
 | Servis | Port | URL | Açıklama |
 |--------|------|-----|----------|
 | Frontend | 3000 | http://localhost:3000 | React UI |
-| Backend | 8001 | http://localhost:8001 | FastAPI + WebSocket |
+| Backend | 8000 | http://localhost:8000 | FastAPI + WebSocket |
 | MongoDB | 27017 | mongodb://localhost:27017 | Job veritabanı |
 | PostgreSQL | 5432 | postgresql://localhost:5432 | Hedef DB |
 | MSSQL | 1433 | mssql://localhost:1433 | Kaynak DB |

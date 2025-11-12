@@ -120,6 +120,21 @@ backend:
       - working: true
         agent: "testing"
         comment: "Demo migration endpoint başarıyla test edildi. POST /api/import/demo job ID döndürüyor, GET /api/jobs/{job_id} doğru status veriyor, 8 demo tablo (Customers, Orders, Products vb.) oluşturuluyor ve migration tamamlanıyor. Minor fix: Stage enum değerleri ve TableInfo/JobStats model alanları düzeltildi."
+      - working: true
+        agent: "main"
+        comment: "Demo veri görüntüleme eklendi. Job modeline is_demo flag eklendi, mock data fonksiyonu oluşturuldu. Artık demo modda tablolar seçildiğinde örnek veriler gösteriliyor."
+  
+  - task: "Demo Veri Görüntüleme"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "_get_demo_table_data fonksiyonu eklendi. Her demo tablo için mock data (Customers: 91 satır, Orders: 830 satır, Products: 77 satır vb.) hazırlandı. Demo job'larda tablo verisi sorgulandığında gerçek veritabanı yerine mock data dönüyor."
   
   - task: "Lazy Service Loading"
     implemented: true

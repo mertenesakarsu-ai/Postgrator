@@ -334,7 +334,7 @@ async def run_demo_migration(job_id: str):
         await send_progress(job_id, "log", level="info", msg="✓ Tablolar oluşturuldu (demo)")
         
         # Stage 5: Data Migration (simulated)
-        job.stage = Stage.DATA_MIGRATION
+        job.stage = Stage.DATA_COPY
         job.percent = 45
         await send_progress(job_id, "stage", v="data_migration")
         await send_progress(job_id, "log", level="info", msg="Veri aktarımı başladı...")

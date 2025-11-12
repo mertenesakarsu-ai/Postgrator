@@ -59,7 +59,7 @@ POSTGRES_TARGET="postgres"              # Docker servis ismi
 
 #### `frontend/.env`
 ```env
-REACT_APP_BACKEND_URL=http://localhost:8001  # Host'tan erişim
+REACT_APP_BACKEND_URL=http://localhost:8000  # Host'tan erişim
 WDS_SOCKET_PORT=3000
 ```
 

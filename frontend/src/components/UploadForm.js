@@ -170,6 +170,37 @@ const UploadForm = ({ onUploadStart }) => {
             )}
           </Button>
         </form>
+
+        <div className="demo-section">
+          <div className="divider">
+            <span>VEYA</span>
+          </div>
+          <Button
+            type="button"
+            data-testid="demo-button"
+            className="demo-button"
+            onClick={handleDemo}
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <div className="spinner"></div>
+                Başlatılıyor...
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polygon points="10 8 16 12 10 16 10 8"/>
+                </svg>
+                Demo Modu İle Dene
+              </>
+            )}
+          </Button>
+          <p className="demo-description">
+            Gerçek veritabanı olmadan migration işlemini deneyimleyin
+          </p>
+        </div>
       </div>
 
       <div className="info-cards">

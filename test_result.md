@@ -117,6 +117,9 @@ backend:
       - working: true
         agent: "main"
         comment: "run_demo_migration fonksiyonu eklendi. Simüle edilmiş 8 tablolu Northwind migration'ı içeriyor."
+      - working: true
+        agent: "testing"
+        comment: "Demo migration endpoint başarıyla test edildi. POST /api/import/demo job ID döndürüyor, GET /api/jobs/{job_id} doğru status veriyor, 8 demo tablo (Customers, Orders, Products vb.) oluşturuluyor ve migration tamamlanıyor. Minor fix: Stage enum değerleri ve TableInfo/JobStats model alanları düzeltildi."
   
   - task: "Lazy Service Loading"
     implemented: true

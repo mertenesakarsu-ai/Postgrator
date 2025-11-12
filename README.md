@@ -26,15 +26,25 @@ Postgrator, SQL Server .bak yedeklerini PostgreSQL'e hızlı, güvenli ve kayıp
 
 ## 🚀 Kurulum
 
-### Docker Compose Başlat
+### Localhost'ta Çalıştırma (Docker ile)
+
+Detaylı kurulum için: [📖 LOCALHOST_SETUP.md](./LOCALHOST_SETUP.md)
+
+#### Hızlı Başlangıç
 ```bash
+# Tüm servisleri başlat (MongoDB, MSSQL, PostgreSQL, Backend, Frontend)
 docker-compose up -d
+
+# Tarayıcıda aç
+# http://localhost:3000
 ```
 
-### Tarayıcıda Aç
-```
-http://localhost:3000
-```
+#### Servisler
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8001
+- **MongoDB**: localhost:27017
+- **PostgreSQL**: localhost:5432
+- **MSSQL**: localhost:1433
 
 ## 📝 Kullanım
 

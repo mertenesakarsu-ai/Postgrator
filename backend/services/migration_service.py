@@ -372,7 +372,7 @@ async def run_demo_migration(job_id: str):
         await send_progress(job_id, "log", level="info", msg="✓ Veri aktarımı tamamlandı (demo)")
         
         # Stage 6: Constraints (simulated)
-        job.stage = Stage.CONSTRAINTS
+        job.stage = Stage.CONSTRAINTS_APPLY
         job.percent = 90
         await send_progress(job_id, "stage", v="constraints")
         await send_progress(job_id, "log", level="info", msg="Kısıtlamalar uygulanıyor...")

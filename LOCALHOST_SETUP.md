@@ -26,7 +26,7 @@ Bu komut şu servisleri başlatacak:
 - ✅ **MongoDB** (port 27017) - Job takibi ve metadata
 - ✅ **MSSQL** (port 1433) - Kaynak veritabanı (geçici restore için)
 - ✅ **PostgreSQL** (port 5432) - Hedef veritabanı
-- ✅ **Backend** (port 8001) - FastAPI + WebSocket
+- ✅ **Backend** (port 8000) - FastAPI + WebSocket
 - ✅ **Frontend** (port 3000) - React UI
 
 ### 3. Servislerin Durumunu Kontrol Edin

@@ -53,6 +53,8 @@ async def run_migration(job_id: str):
     """
     Main migration pipeline
     """
+    _ensure_services()  # Load services when needed
+    
     job = jobs.get(job_id)
     if not job:
         return

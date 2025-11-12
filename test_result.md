@@ -183,3 +183,19 @@ agent_communication:
       5. README.md güncellendi
       
       Demo modu PostgreSQL, MSSQL veya .bak dosyası gerektirmeden migration işlemini simüle eder.
+  - agent: "testing"
+    message: |
+      Demo Migration Endpoint başarıyla test edildi ve çalışıyor.
+      
+      Test Sonuçları:
+      ✅ POST /api/import/demo - Job ID, status "queued", demo: true döndürüyor
+      ✅ GET /api/jobs/{job_id} - Job durumu ve progress doğru şekilde alınıyor
+      ✅ GET /api/jobs/{job_id}/tables - 8 demo tablo (Customers, Orders, Products, Categories, Employees, Suppliers, Shippers, Order Details) bulunuyor
+      ✅ Job tamamlanması - Demo migration ~18 saniyede başarıyla tamamlanıyor
+      
+      Düzeltilen Minor Issues:
+      - Stage enum değerleri (DATA_MIGRATION -> DATA_COPY, CONSTRAINTS -> CONSTRAINTS_APPLY, VALIDATION -> VALIDATE)
+      - TableInfo model'e percent ve migrated_rows alanları eklendi
+      - JobStats model'e rows_migrated alanı eklendi
+      
+      Tüm backend testler geçiyor. Demo modu tam olarak çalışıyor.

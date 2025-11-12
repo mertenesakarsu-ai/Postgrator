@@ -382,7 +382,7 @@ async def run_demo_migration(job_id: str):
         await send_progress(job_id, "log", level="info", msg="✓ Index'ler oluşturuldu (demo)")
         
         # Stage 7: Validation (simulated)
-        job.stage = Stage.VALIDATION
+        job.stage = Stage.VALIDATE
         job.percent = 95
         await send_progress(job_id, "stage", v="validation")
         await send_progress(job_id, "log", level="info", msg="Veri doğrulanıyor...")

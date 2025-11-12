@@ -81,7 +81,7 @@ backend:8001        → Backend API
 localhost:27017  → mongodb:27017
 localhost:1433   → mssql:1433
 localhost:5432   → postgres:5432
-localhost:8001   → backend:8001
+localhost:8000   → backend:8000
 localhost:3000   → frontend:3000
 ```
 

@@ -90,12 +90,12 @@ localhost:3000   → frontend:3000
 Frontend'de otomatik protokol dönüşümü:
 ```javascript
 const WS_URL = BACKEND_URL.replace('https://', 'wss://').replace('http://', 'ws://');
-// http://localhost:8001 → ws://localhost:8001
+// http://localhost:8000 → ws://localhost:8000
 ```
 
 WebSocket endpoint:
 ```
-ws://localhost:8001/api/jobs/{job_id}/stream
+ws://localhost:8000/api/jobs/{job_id}/stream
 ```
 
 ## 📦 Volume Mapping

@@ -16,7 +16,7 @@
 MongoDB       → localhost:27017
 MSSQL 2022    → localhost:1433
 PostgreSQL 16 → localhost:5432
-Backend API   → localhost:8001
+Backend API   → localhost:8000
 Frontend      → localhost:3000
 ```
 

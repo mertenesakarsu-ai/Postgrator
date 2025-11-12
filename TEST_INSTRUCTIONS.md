@@ -78,7 +78,7 @@ WITH FORMAT, INIT;
 
 3. **Web Arayüzünde Test Et**
 
-- https://local-stack-ready.preview.emergentagent.com adresine git
+- https://local-dev-env.preview.emergentagent.com adresine git
 - `testdb.bak` dosyasını yükle
 - PostgreSQL URI: `postgresql://postgres:postgres@localhost:5432/target_db`
 - "Migrasyonu Başlat"a tıkla

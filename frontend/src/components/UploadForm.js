@@ -65,6 +65,22 @@ const UploadForm = ({ onUploadStart }) => {
     }
   };
 
+  const handleDemo = async () => {
+    setLoading(true);
+    
+    try {
+      const response = await axios.post(`${API}/import/demo`);
+      toast.success('Demo migrasyon başlatıldı!');
+      onUploadStart(response.data.jobId);
+    } catch (error) {
+      console.error('Demo error:', error);
+      const errorMsg = error.response?.data?.detail || 'Demo başlatılamadı';
+      toast.error(errorMsg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="upload-container" data-testid="upload-form">
       <div className="upload-card">

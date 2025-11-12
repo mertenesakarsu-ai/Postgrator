@@ -78,3 +78,20 @@ agenthub/agents/youtube/db
 
 # Mobile development
 android-sdk/ 
+# Docker
+docker-compose.override.yml
+
+# Uploads and backups
+backend/uploads/
+backups/*.bak
+backups/*.sql
+
+# Database files
+*.db
+*.sqlite
+
+# Environment specific
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

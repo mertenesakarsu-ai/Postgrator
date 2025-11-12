@@ -31,12 +31,13 @@ logger = logging.getLogger(__name__)
 # In-memory job storage (for MVP; production would use database)
 jobs: Dict[str, Job] = {}
 
-async def create_job(pg_uri: str, schema: str, bak_filename: str) -> str:
+async def create_job(pg_uri: str, schema: str, bak_filename: str, is_demo: bool = False) -> str:
     """Create a new migration job"""
     job = Job(
         pg_uri=pg_uri,
         schema=schema,
-        bak_filename=bak_filename
+        bak_filename=bak_filename,
+        is_demo=is_demo
     )
     jobs[job.job_id] = job
     return job.job_id

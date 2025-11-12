@@ -63,4 +63,4 @@ Real-time aşamalar: Doğrulama → Restore → Şema Analizi → Tablo Oluştur
 
 ---
 
-**Emergent Labs** tarafından geliştirilmiştir.
+**MertEnes-Ai** tarafından geliştirilmiştir.

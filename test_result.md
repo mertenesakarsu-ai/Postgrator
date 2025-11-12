@@ -104,6 +104,13 @@
 
 user_problem_statement: |
   PostgreSQL bağlantı hatası düzeltilmesi ve Demo Modu eklenmesi
+  
+  Yeni Görev: Projeyi tamamen local Docker ortamı için yapılandırma
+  - Backend portu 8001'den 8000'e değiştirildi
+  - Docker Compose yapılandırmaları güncellendi
+  - WebSocket localhost:8000 için ayarlandı
+  - Docker içinde MongoDB kullanımı yapılandırıldı
+  - Tüm dokümanlar güncellendi
 
 backend:
   - task: "Demo Migration Endpoint"

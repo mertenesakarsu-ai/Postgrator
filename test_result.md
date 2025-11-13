@@ -253,3 +253,17 @@ agent_communication:
       - JobStats model'e rows_migrated alanı eklendi
       
       Tüm backend testler geçiyor. Demo modu tam olarak çalışıyor.
+  - agent: "main"
+    message: |
+      .bak dosyası yükleme ve WebSocket sorunu çözüldü.
+      
+      Sorun: Local'de çalışırken .bak dosyası backend'e upload ediliyor ama Docker MSSQL container'ı bu dosyayı göremiyordu.
+      
+      Yapılan Düzeltmeler:
+      1. upload_service.py - Upload edilen .bak dosyaları otomatik olarak Docker container'a kopyalanıyor
+      2. Docker container kontrolü eklendi (çalışıp çalışmadığını kontrol ediyor)
+      3. migration_service.py - Docker içindeki dosya yolunu kullanıyor
+      4. Daha iyi error handling eklendi
+      5. LOCAL_MSSQL_DOCKER.md dokümanı oluşturuldu
+      
+      Artık .bak dosyası yüklendiğinde Docker MSSQL tarafından erişilebilir ve migration başlayabilir.

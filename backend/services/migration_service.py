@@ -72,12 +72,15 @@ async def run_migration(job_id: str):
         await send_progress(job_id, "stage", v="verify")
         await send_progress(job_id, "log", level="info", msg=".bak dosyası doğrulanıyor...")
         
-        bak_path = upload_service.get_backup_file_path(job_id)
-        if not bak_path:
+        # Get Docker path for MSSQL to access the file
+        docker_bak_path = upload_service.get_docker_backup_path(job_id)
+        if not docker_bak_path:
             raise Exception("Backup dosyası bulunamadı")
         
+        logger.info(f"Docker backup path: {docker_bak_path}")
+        
         # Verify backup
-        await mssql_service.verify_backup(str(bak_path))
+        await mssql_service.verify_backup(docker_bak_path)
         await send_progress(job_id, "log", level="info", msg="✓ Backup doğrulandı")
         
         # Stage 2: Restore
@@ -87,8 +90,8 @@ async def run_migration(job_id: str):
         await send_progress(job_id, "log", level="info", msg="MSSQL'e restore ediliyor...")
         
         # Get file list
-        logical_files = await mssql_service.get_backup_file_list(str(bak_path))
-        await mssql_service.restore_database(str(bak_path), logical_files)
+        logical_files = await mssql_service.get_backup_file_list(docker_bak_path)
+        await mssql_service.restore_database(docker_bak_path, logical_files)
         await send_progress(job_id, "log", level="info", msg="✓ Database restore edildi")
         
         # Stage 3: Schema Discovery

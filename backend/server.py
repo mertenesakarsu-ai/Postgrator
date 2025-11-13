@@ -75,9 +75,13 @@ async def import_backup(
         if not file.filename.endswith('.bak'):
             raise HTTPException(status_code=400, detail="Sadece .bak dosyaları desteklenmektedir")
         
+        # Fix PostgreSQL URI for Docker environment
+        # Replace localhost/127.0.0.1 with 'postgres' service name
+        fixed_pgUri = pgUri.replace('localhost', 'postgres').replace('127.0.0.1', 'postgres')
+        
         # Test PostgreSQL connection
         try:
-            conn = await psycopg.AsyncConnection.connect(pgUri)
+            conn = await psycopg.AsyncConnection.connect(fixed_pgUri)
             await conn.close()
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"PostgreSQL bağlantısı başarısız: {e}")

@@ -62,8 +62,17 @@ async def save_upload_file(upload_file: UploadFile, job_id: str) -> tuple[str, s
     return str(file_path), sha256_hash.hexdigest()
 
 def get_backup_file_path(job_id: str) -> Path:
-    """Get backup file path for a job"""
+    """Get backup file path for a job (local filesystem)"""
     files = list(BACKUP_DIR.glob(f"{job_id}_*"))
     if files:
         return files[0]
+    return None
+
+def get_docker_backup_path(job_id: str) -> str:
+    """Get backup file path inside Docker MSSQL container"""
+    local_file = get_backup_file_path(job_id)
+    if local_file:
+        # Docker container içindeki path
+        filename = local_file.name
+        return f"{MSSQL_BACKUP_PATH}/{filename}"
     return None

@@ -159,6 +159,18 @@ backend:
       - working: true
         agent: "main"
         comment: "Backend portu 8001'den 8000'e değiştirildi. docker-compose.yml, docker-compose.demo.yml, backend/Dockerfile ve tüm dokümanlar güncellendi. WebSocket otomatik olarak yeni porta uyum sağlayacak."
+  
+  - task: "Docker MSSQL Entegrasyonu"
+    implemented: true
+    working: "NA"
+    file: "backend/services/upload_service.py, backend/services/migration_service.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Local setup için .bak dosyası Docker container'a otomatik kopyalama eklendi. Upload edilen dosyalar Docker MSSQL'in /var/opt/mssql/backup dizinine kopyalanıyor. Container kontrolü ve error handling eklendi."
     stuck_count: 0
     priority: "high"
     needs_retesting: false

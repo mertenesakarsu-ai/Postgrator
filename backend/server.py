@@ -86,8 +86,8 @@ async def import_backup(
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"PostgreSQL bağlantısı başarısız: {e}")
         
-        # Create job
-        job_id = await migration_service.create_job(pgUri, schema, file.filename)
+        # Create job with fixed URI
+        job_id = await migration_service.create_job(fixed_pgUri, schema, file.filename)
         
         # Save uploaded file
         bak_path, sha256 = await upload_service.save_upload_file(file, job_id)

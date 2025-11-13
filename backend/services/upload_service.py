@@ -43,6 +43,18 @@ async def save_upload_file(upload_file: UploadFile, job_id: str) -> tuple[str, s
     
     # Docker MSSQL container'ına kopyala
     try:
+        # Önce container'ın çalıştığını kontrol et
+        check_result = subprocess.run(
+            ['docker', 'ps', '--filter', f'name={MSSQL_CONTAINER}', '--format', '{{.Names}}'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        
+        if MSSQL_CONTAINER not in check_result.stdout:
+            logger.warning(f"Docker container '{MSSQL_CONTAINER}' çalışmıyor!")
+            raise Exception(f"MSSQL Docker container çalışmıyor. Lütfen 'docker ps' ile kontrol edin.")
+        
         docker_file_name = f"{job_id}_{upload_file.filename}"
         # Docker'a dosyayı kopyala
         result = subprocess.run(
@@ -51,13 +63,18 @@ async def save_upload_file(upload_file: UploadFile, job_id: str) -> tuple[str, s
             text=True,
             check=True
         )
-        logger.info(f"Dosya Docker container'a kopyalandı: {MSSQL_BACKUP_PATH}/{docker_file_name}")
+        logger.info(f"✅ Dosya Docker container'a kopyalandı: {MSSQL_BACKUP_PATH}/{docker_file_name}")
     except subprocess.CalledProcessError as e:
-        logger.warning(f"Docker'a kopyalama başarısız (Docker kullanılmıyor olabilir): {e.stderr}")
+        error_msg = f"Docker'a kopyalama başarısız: {e.stderr}"
+        logger.error(error_msg)
+        raise Exception(error_msg)
     except FileNotFoundError:
-        logger.warning("Docker komutu bulunamadı (Docker kurulu değil)")
+        error_msg = "Docker komutu bulunamadı. Docker kurulu ve çalışıyor mu?"
+        logger.error(error_msg)
+        raise Exception(error_msg)
     except Exception as e:
-        logger.warning(f"Docker kopyalama hatası: {e}")
+        logger.error(f"Docker kopyalama hatası: {e}")
+        raise
     
     return str(file_path), sha256_hash.hexdigest()
 

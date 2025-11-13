@@ -24,7 +24,7 @@ Projenizi Docker olmadan macOS'ta local çalıştırmak için aşağıdaki deği
 
 #### Frontend (.env)
 ```diff
-- REACT_APP_BACKEND_URL=https://psql-config-guide.preview.emergentagent.com
+- REACT_APP_BACKEND_URL=https://docker-migration-bug.preview.emergentagent.com
 + REACT_APP_BACKEND_URL=http://localhost:8000
 
 - WATCHPACK_POLLING=true                     # Docker için gerekli

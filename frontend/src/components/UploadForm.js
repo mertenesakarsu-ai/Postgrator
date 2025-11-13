@@ -132,7 +132,11 @@ const UploadForm = ({ onUploadStart }) => {
               placeholder="postgresql://user:pass@host:5432/database"
               disabled={loading}
             />
-            <span className="hint">Örnek: postgresql://postgres:postgres@localhost:5432/target_db</span>
+            <span className="hint">
+              💡 Docker için: <code>postgresql://postgres:postgres@localhost:5432/target_db</code>
+              <br />
+              (Backend otomatik olarak localhost'u postgres container'ına yönlendirir)
+            </span>
           </div>
 
           <div className="form-group">

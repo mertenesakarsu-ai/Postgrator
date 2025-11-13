@@ -26,7 +26,39 @@ Postgrator, SQL Server .bak yedeklerini PostgreSQL'e hızlı, güvenli ve kayıp
 
 ## 🚀 Kurulum
 
-### 🏠 Localhost'ta Çalıştırma (Docker ile)
+### 💻 Local Çalıştırma (Docker Olmadan) - **YENİ!**
+
+macOS'ta Docker olmadan local çalıştırmak için:
+
+#### ⚡ Hızlı Başlangıç (5 dakika)
+```bash
+# 1. Gerekli yazılımları kur
+brew install python@3.11 node mongodb-community@7.0 postgresql@16
+npm install -g yarn
+
+# 2. Veritabanlarını başlat
+brew services start mongodb-community@7.0
+brew services start postgresql@16
+
+# 3. PostgreSQL veritabanı oluştur
+psql postgres -c "CREATE USER postgres WITH PASSWORD 'postgres' SUPERUSER;"
+psql postgres -c "CREATE DATABASE target_db OWNER postgres;"
+
+# 4. Projeyi başlat
+cd /app
+./start-local.sh
+
+# Tarayıcıda aç: http://localhost:3000
+```
+
+#### 📖 Local Dokümantasyon
+- **🚀 Hızlı Başlangıç**: [HIZLI_BASLANGIÇ.md](./HIZLI_BASLANGIÇ.md) - 5 dakikada çalıştır
+- **📚 Komple Kılavuz**: [LOCAL_KURULUM_KILAVUZU.md](./LOCAL_KURULUM_KILAVUZU.md) - Tüm detaylar
+- **🐘 PostgreSQL Kurulum**: [MACOS_POSTGRESQL_KURULUM.md](./MACOS_POSTGRESQL_KURULUM.md) - macOS'ta PostgreSQL
+
+---
+
+### 🐳 Docker ile Çalıştırma
 
 #### ⚡ Hızlı Başlangıç (2 dakika)
 ```bash
@@ -43,7 +75,7 @@ MSSQL olmadan sadece demo modu için:
 docker-compose -f docker-compose.demo.yml up -d
 ```
 
-#### 📖 Detaylı Dokümanlar
+#### 📖 Docker Dokümanlar
 - **Hızlı Başlangıç**: [QUICKSTART.md](./QUICKSTART.md) - 2 dakikada çalıştır
 - **Detaylı Kurulum**: [LOCALHOST_SETUP.md](./LOCALHOST_SETUP.md) - Tüm detaylar ve sorun giderme
 - **Test Talimatları**: [TEST_INSTRUCTIONS.md](./TEST_INSTRUCTIONS.md)

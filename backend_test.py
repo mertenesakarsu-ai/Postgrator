@@ -11,7 +11,7 @@ import sys
 from typing import Dict, Any
 
 # Backend URL from frontend/.env
-BACKEND_URL = "https://local-dev-env.preview.emergentagent.com/api"
+BACKEND_URL = "https://psql-config-guide.preview.emergentagent.com/api"
 
 class TestResult:
     def __init__(self):
